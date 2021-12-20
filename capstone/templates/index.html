@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Music CG</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+ <div class="login" >
+   <div id="head" style="font-family: Allerta Stencil, Sans-serif;">
+    <h1 style="font-size:6rem;">Genre Detection</h1>
+   </div>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}"method="post" enctype="multipart/form-data">
+    	<input type="file" name="file" placeholder="Audio" required="required"  accept=".wav" id = "upload"/>
+      <audio id="audio" controls>
+        <source src="" id="src" />
+      </audio>
+        <button type="submit" class="btn btn-primary btn-block btn-large" >Predict</button>
+    </form>
+   <div>
+    {% if prediction %}
+        <h2>lagu prediksi genre {{prediction}}</h2>
+    {% endif %}
+
+    <div align="center">
+      <table>
+          <h1>
+          <!--Displaying the converted table-->
+               {% for table in tables %}
+              <h2>{{titles[loop.index]}}</h2>                            
+              {{ table|safe }}
+              {% endfor %}     
+          </h1> 
+      </table>
+  </div>
+
+   </div>
+</body>
+<script>
+  function handleFiles(event) {
+    var files = event.target.files;
+    $("#src").attr("src", URL.createObjectURL(files[0]));
+    document.getElementById("audio").load();
+  }
+
+  document.getElementById("upload").addEventListener("change", handleFiles, false);
+</script>
+</html>
