@@ -5,6 +5,7 @@ import librosa
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
+from pydub import AudioSegment
 
 app = Flask(__name__)
 
@@ -24,6 +25,12 @@ def main():
 def predict():
     if request.method == 'POST':
         file = request.files['file']
+        def convert_to_wav(file):
+            sound = AudioSegment.from_mp3(f"{file}.mp3")
+            hasil = sound.export(f"{file}.wav", format="wav")
+            return hasil
+
+        file = convert_to_wav(file)
         if file:
             audio, sr = librosa.load(file)
             audio, _ = librosa.effects.trim(audio)
