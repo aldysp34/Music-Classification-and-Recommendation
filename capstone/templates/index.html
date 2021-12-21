@@ -34,13 +34,20 @@
 
     <div align="center">
       <table>
-          <h1>
-          <!--Displaying the converted table-->
-               {% for table in tables %}
-              <h2>{{titles[loop.index]}}</h2>                            
-              {{ table|safe }}
-              {% endfor %}     
-          </h1> 
+          <tr>
+            {% for col in column_names %}
+            <th>{{col}}</th>
+            {% endfor %}
+          </tr>
+          {% for row in row_data %}
+          <tr>
+            {% for col, row in zip(column_names, row) %}
+            <td>
+              {{row_}}
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
       </table>
   </div>
 
