@@ -27,21 +27,20 @@ Penjelasan mengenai data pada proyek ini ditemukan di<br>
 `run_model/exploratory_data_analysis.ipynb`
 
 ## **Local Deployment**
-1. Buka folder project di text editor ex. VSC, PyCharm
+1. Buka folder project di text editor seperti VSC, PyCharm
 2. Buka file capstone -> app.py
 3. Buka terminal app.py
 4. Install beberapa hal berikut:
 - environment : `pip install virtualenv`
-- create enviroment : virtualenv env_capstone
+- create enviroment : `virtualenv env_capstone`
 - requirement : `pip install-r requirement.txt`
-5. Ketik perintah `python.exe app.py` pada terminal
+5. Setelah instalasi selesai, etik perintah `python.exe app.py` pada terminal.
 6. Tunggu hingga muncul link localhost deployment, klik link tersebut.
 
 # **Modeling**
 Pada proyek ini, kami menggunakan Deep Learning untuk membuat model klasifikasi. Kami menggunakan TensorFlow untuk membangun Neural Networks.
-Music Genre Classification using CNN:
-<!-- 1. Extract MFCC features
-Since librosa provided buildt-in function for extracting MFCCs. The work is only to try the parameters that works for the project. In this project, the params are:
+1. Extraksi Fitur MFCC (Mel Frequency Coefisient )
+<!-- Since librosa provided buildt-in function for extracting MFCCs. The work is only to try the parameters that works for the project. In this project, the params are:
 signal: the audio load from dataset
 sample_rate: 22050 (default)
 n_mfcc: 13 (default was 20)
@@ -76,4 +75,7 @@ metrics: accuracy (as we use accuracy to evaluate the performance of the model)
 The model is evaluated by train/test accuracy and train/test loss. The figure is plotted to illustrate whether the model is suffering from overfitting or underfitting. -->
 
 # **Referensi**
-1. [Template](https://startbootstrap.com/theme/grayscale)
+<!-- 1. [Template](https://startbootstrap.com/theme/grayscale) -->
+2. [Home Picture](https://unsplash.com/photos/7LNatQYMzm4) (Photo by @icons8)
+3. [Music-genre-classifier](https://github.com/0sparsh2/Music-genre-classifier)
+4. [GTZAN Dataset - Music Genre Classification using Python](https://www.youtube.com/watch?v=2mCfP6mpQpo&t=2s)
