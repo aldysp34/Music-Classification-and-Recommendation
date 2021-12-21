@@ -1,17 +1,15 @@
 import numpy as np
-import pandas as pd
+import pandas
 from flask import Flask, render_template, request
 import librosa
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras.models import load_model
-from pydub import AudioSegment
 
 app = Flask(__name__)
 
-spotify_df = pd.read_csv('top10s.csv', encoding="ISO-8859-1")
-spotify_df.drop(['bpm', 'nrgy','pop','dnce','dB','live','val','dur','acous','spch'], axis=1, inplace=True)
-spotify_df.rename(columns={'Unnamed: 0' : 'music_id'}, inplace=True )
+spotify_df = pandas.read_csv('spotify_dataset.csv', encoding="ISO-8859-1")
+spotify_df.drop(['Index', 'Highest Charting Position','Number of Times Charted','Week of Highest Charting','Streams','Artist Followers','Song ID','Weeks Charted','Popularity','Danceability', 'Energy', 'Loudness', 'Speechiness', 'Acousticness', 'Liveness', 'Tempo', 'Duration (ms)', 'Valence', 'Chord'], axis=1, inplace=True)
 
 model = tf.keras.models.load_model('model.h5')
 model.make_predict_function()
@@ -25,12 +23,6 @@ def main():
 def predict():
     if request.method == 'POST':
         file = request.files['file']
-        def convert_to_wav(file):
-            sound = AudioSegment.from_mp3(f"{file}.mp3")
-            hasil = sound.export(f"{file}.wav", format="wav")
-            return hasil
-
-        file = convert_to_wav(file)
         if file:
             audio, sr = librosa.load(file)
             audio, _ = librosa.effects.trim(audio)
@@ -66,8 +58,11 @@ def predict():
             else:
                 genre_detected = 'Rock'
 
-            song = pd.DataFrame(spotify_df.loc[spotify_df['top genre'].str.contains(genre_detected)])
+            label = genre_detected.lower() 
+            song = pandas.DataFrame(spotify_df.loc[spotify_df['Genre'].str.contains(label)])
 
     return render_template('index.html', prediction = genre_detected, tables = [song.to_html(index=False)], titles=[''])
+
+
 if __name__ == "__main__":
   app.run(host='0.0.0.0', port=5000, debug=True)
