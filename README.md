@@ -2,10 +2,11 @@
 _Capstone_ MBKM SIB Dicoding Tim CSD-109. Tujuan proyek ini untuk mengklasifikasikan genre dari audio musik menggunakan _deep learning dan memberikan lagu yang serupa dengan genre dari audio tersebut.
 
 ## **Dataset**
-Data yang digunakan pada proyek ini adalah [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification).
-> Dataset terdiri dari 1000 track audio,  masing-masing berdurasi 30 detik dan berisi 10 genre, masing-masing diwakili oleh 100 lagu. Semua track adalah audio 16-bit Mono 22050Hz dalam format `.wav`.
+Data yang digunakan pada proyek ini adalah [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification) dan [Spotify Top 200 Charts (2020-2021)](https://www.kaggle.com/sashankpillai/spotify-top-200-charts-20202021).
+> Dataset [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification) terdiri dari 1000 track audio,  masing-masing berdurasi 30 detik dan berisi 10 genre, masing-masing diwakili oleh 100 lagu. Semua track adalah audio 16-bit Mono 22050Hz dalam format `.wav`.
+> Dataset [Spotify Top 200 Charts (2020-2021)](https://www.kaggle.com/sashankpillai/spotify-top-200-charts-20202021) mencakup semua lagu yang telah berada di 200 Tangga Lagu Mingguan (Global) Teratas di Spotify pada tahun 2020 & 2021. Pada proyek ini hanya memerlukan empat fitur yaitu 'Song Name', 'Artist', 'Genre', dan 'Realese Date' dari keseulurah fitur dari dataset.
 
-10 genre dalam Dataset : 
+10 genre dalam GTZAN Dataset : 
 1. Blues
 2. Classical
 3. Country
@@ -20,62 +21,60 @@ Data yang digunakan pada proyek ini adalah [GTZAN Dataset](https://www.kaggle.co
 ## **Usage**
 ### **Feature Extraction**
 _Run Notebook_ dapat ditemukan di<br>
-`run_model/mussic_clasification.ipynb`
+`run_model/music_clasification_and_recommendation.ipynb`
 
-## **Exploratory Data Analysis**
+### **Exploratory Data Analysis**
 Penjelasan mengenai data pada proyek ini ditemukan di<br>
 `run_model/exploratory_data_analysis.ipynb`
 
-## **Local Deployment**
-1. Buka folder project di text editor seperti VSC, PyCharm
-2. Buka file capstone -> app.py
-3. Buka terminal app.py
+### **Local Deployment**
+1. Buka project di text editor seperti VSC, PyCharm.
+2. Buka file capstone, kemudian buka file `app.py`
+3. Buka terminal `app.py`
 4. Install beberapa hal berikut:
 - environment : `pip install virtualenv`
 - create enviroment : `virtualenv env_capstone`
 - requirement : `pip install-r requirement.txt`
-5. Setelah instalasi selesai, etik perintah `python.exe app.py` pada terminal.
+5. Setelah instalasi selesai, ketik perintah `python.exe app.py` pada terminal.
 6. Tunggu hingga muncul link localhost deployment, klik link tersebut.
+7. Masukkan lagu yang ingin diprediksi dengan format lagu yaitu `.wav`.
 
 # **Modeling**
 Pada proyek ini, kami menggunakan Deep Learning untuk membuat model klasifikasi. Kami menggunakan TensorFlow untuk membangun Neural Networks.
-1. Extraksi Fitur MFCC (Mel Frequency Coefisient )
-<!-- Since librosa provided buildt-in function for extracting MFCCs. The work is only to try the parameters that works for the project. In this project, the params are:
-signal: the audio load from dataset
-sample_rate: 22050 (default)
-n_mfcc: 13 (default was 20)
-n_ftt: 2048 (default)
-hop_length: 512 (default)
-The extracted MFCCs are then labeled and dumped into data.json for the ease of using.
+1. **Extraksi Fitur MFCC (_Mel Frequency Cepstral Coefficients_)**
+Penelitian yang dilakukan oleh [(G. Jawaherlalnehru
+dan S. Jothilakshmi, 2018)](https://www.semanticscholar.org/paper/Music-Genre-Classification-using-Deep-Neural-Jawaherlalnehru-Jothilakshmi/4d4c342090d771b8a9b38eca212c2b330952c28d) menyebutkan bahwa MFCC digunakan untuk merepresentasikan karakteristik musik. Oleh karena itu, pada proyek ini, untuk mengenali genre dari sebuah lagu kami menggunakan fitur MFCC. Library `librosa` menyediakan fungsi bawaan untuk mengektrasksi MFCC. Adapun parameter yang digunakan dalam proyek ini adalah:
+- `sample_rate` : 22050 (default)
+- `m_fcc`       : 40 (default 20)
+- `n_ftt`       : 2040 (default)
+- `hop_length`  : 512 (default)
+- `res_type`    : kaiser_fast
+Hasil ektraksi MFF kemudian diberi label dengan `LabelEncoder()`.
 
-2. Create the neural network
-With the help of tensorflow.keras, the network is built as:
-3 convolutional layers:
-Conv2D: 2D convolutional layer
-Maxpooling2D: help extracts the sharpest features
-BatchNormalization(): speed up training and more reliable model
-Dense layer:
-Flatten(): convert from 2D to 1D layer
-Dropout(): improve network robustness (network can rely too much on specific neuron)
-Output layer
+2. **Membangun Model Neural Network**
+Dengan bantuan tensorflow, model yang dibangun atas:
+- Dense layer   : Untuk menambahkan layar yang _fully connected_.
+    - _units_ menandakan jumlah node yang harus ada di _hidden layer_
+    - _activation_, fungsi aktivasi yang digunakan adalah relu.
+- Dropout()     : Untuk mencegah terjadinya overfitting dan mempercepat proses learning.
+- Output layer  : Terdiri dari 10 units karena klasifikasi pada proyek terdapat 10 genre.
 
-3. Prepare the data
-Split the data into:
-train set: 80% of the dataset
-test set: 20% of the dataset
+3. **Persiapan Data**
+Data dibagi menjadi data testing dan training.
+- _Train set_   : 67% dari dataset.
+- _Test set_    : 33% dari dataset.
 
-4. Train the data with CNN model
-The model is compiled with:
-optimizer: Adam optimizer (stochastic gradient descent method)
-learning_rate: 0.0001 (tried to avoid overfitting)
-loss: categorical_crossentropy (as classes is mutually exclusive and samples can have soft probabilities labels)
-metrics: accuracy (as we use accuracy to evaluate the performance of the model)
+4. **_Training_ data dengan Deep Learning**
+Model dikompilasi dengan :
+- _optimizer_   : `Adam`
+- _loss_        : `categorical_crossentropy`
+- _metrics_     : `accucary`
 
-5. Evaluate the model
-The model is evaluated by train/test accuracy and train/test loss. The figure is plotted to illustrate whether the model is suffering from overfitting or underfitting. -->
+5. **Evaluasi Model**
+Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut diplot untuk menggambarkan apakah model mengalami _overfitting_ atau _underfitting_. Pada proyek ini model yang dihaislkan mengalami _underfitting_ yang dapat dilihat dari gambar berikut. ![plot_akurasi](https://user-images.githubusercontent.com/63992512/147046383-d2b30c06-9324-4d9d-9c4f-3f81f5b46375.png)
 
 # **Referensi**
-<!-- 1. [Template](https://startbootstrap.com/theme/grayscale) -->
-2. [Home Picture](https://unsplash.com/photos/7LNatQYMzm4) (Photo by @icons8)
-3. [Music-genre-classifier](https://github.com/0sparsh2/Music-genre-classifier)
-4. [GTZAN Dataset - Music Genre Classification using Python](https://www.youtube.com/watch?v=2mCfP6mpQpo&t=2s)
+1. [Music-genre-classifier](https://github.com/0sparsh2/Music-genre-classifier)
+2. [Librosa](https://librosa.org/doc/latest/tutorial.html)
+3. [GTZAN Dataset - Music Genre Classification using Python](https://www.youtube.com/watch?v=2mCfP6mpQpo&t=2s)
+4. [Machine Learning for Audio Classification](https://www.section.io/engineering-education/machine-learning-for-audio-classification/)

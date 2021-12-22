@@ -19,7 +19,6 @@ def main():
     return render_template('index.html')
 
 @app.route('/', methods=['POST'])
-@app.route('/table')
 def predict():
     if request.method == 'POST':
         file = request.files['file']
