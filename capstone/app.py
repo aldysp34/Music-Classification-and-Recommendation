@@ -8,10 +8,10 @@ from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
 
-spotify_df = pandas.read_csv('spotify_dataset.csv', encoding="ISO-8859-1")
+spotify_df = pandas.read_csv('capstone\spotify_dataset.csv', encoding="ISO-8859-1")
 spotify_df.drop(['Index', 'Highest Charting Position','Number of Times Charted','Week of Highest Charting','Streams','Artist Followers','Song ID','Weeks Charted','Popularity','Danceability', 'Energy', 'Loudness', 'Speechiness', 'Acousticness', 'Liveness', 'Tempo', 'Duration (ms)', 'Valence', 'Chord'], axis=1, inplace=True)
 
-model = tf.keras.models.load_model('model.h5')
+model = tf.keras.models.load_model('capstone/model.h5')
 model.make_predict_function()
 
 @app.route('/', methods=['GET'])
@@ -59,6 +59,9 @@ def predict():
 
             label = genre_detected.lower() 
             song = pandas.DataFrame(spotify_df.loc[spotify_df['Genre'].str.contains(label)])
+
+            if len(song.index) > 100:
+                song.drop(song.index[100:len(song.index)], inplace=True)
 
     return render_template('index.html', prediction = genre_detected, tables = [song.to_html(index=False)], titles=[''])
 

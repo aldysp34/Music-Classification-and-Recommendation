@@ -8,7 +8,7 @@
 <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 </head>
@@ -44,7 +44,10 @@
       </table>
   </div>
 
-   </div>
+  </div>
+  <div class="pagination">
+    <ol id="numbers"></ol>
+  </div>
 </body>
 <script>
   function handleFiles(event) {
@@ -55,4 +58,5 @@
 
   document.getElementById("upload").addEventListener("change", handleFiles, false);
 </script>
+<script src="{{ url_for('static', filename='pagination.js') }}"></script>
 </html>
