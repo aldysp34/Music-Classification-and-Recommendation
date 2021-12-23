@@ -28,15 +28,16 @@ Penjelasan mengenai data pada proyek ini ditemukan di<br>
 `run_model/exploratory_data_analysis.ipynb`
 
 ### **Local Deployment**
-1. Buka project di text editor seperti VSC, PyCharm.
-2. Buka file capstone, kemudian buka file `app.py`
-3. Buka terminal `pada folder capstone`
-4. Install beberapa hal berikut:
-- environment : `pip install virtualenv`
-- create enviroment : `virtualenv env_capstone`
-- requirement : `pip install -r requirement.txt`
+1. Buka project di text editor seperti VSC, PyCharm, dan lain-lain.
+2. Buka terminal pada text editor.
+3. Install beberapa hal berikut:
+- _Environment_         : `pip install virtualenv`
+- _Create enviroment_   : `virtualenv 'name'` (bebas)
+4. Setelah _environment_ selesai dibuat, buka folder capstone dan file `app.py`
+- Buka di terminal  : `cd capstone`
+- Install _requirement_ : `pip install-r requirement.txt`
 5. Setelah instalasi selesai, ketik perintah `python.exe app.py` pada terminal.
-6. Tunggu hingga muncul link localhost deployment, klik link tersebut.
+6. Tunggu hingga muncul link _localhost deployment_, klik link tersebut.
 7. Masukkan lagu yang ingin diprediksi dengan format lagu yaitu `.wav`.
 
 # **Modeling**
@@ -78,3 +79,4 @@ Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut dip
 2. [Librosa](https://librosa.org/doc/latest/tutorial.html)
 3. [GTZAN Dataset - Music Genre Classification using Python](https://www.youtube.com/watch?v=2mCfP6mpQpo&t=2s)
 4. [Machine Learning for Audio Classification](https://www.section.io/engineering-education/machine-learning-for-audio-classification/)
+5. [YOOGA – Free Yoga Website Template](https://htmlcodex.com/free-yoga-website-template)
