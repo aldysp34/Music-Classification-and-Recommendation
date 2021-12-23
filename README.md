@@ -74,6 +74,14 @@ Model dikompilasi dengan :
 5. **Evaluasi Model**
 Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut diplot untuk menggambarkan apakah model mengalami _overfitting_ atau _underfitting_. Pada proyek ini model yang dihaislkan mengalami _underfitting_ yang dapat dilihat dari gambar berikut. ![plot_akurasi](https://user-images.githubusercontent.com/63992512/147046383-d2b30c06-9324-4d9d-9c4f-3f81f5b46375.png)
 
+6. **Hasil**
+![home](https://user-images.githubusercontent.com/63992512/147255105-f51f55e8-fdad-439f-a551-14aa3b52ad8d.jpg)
+![predict2](https://user-images.githubusercontent.com/63992512/147255741-f45a2d0f-54c9-4917-a11a-ea04c970cda3.jpg)
+![reggae](https://user-images.githubusercontent.com/63992512/147255888-602ed45f-6bf2-4fae-95ac-05f2ab5e91c2.jpg)
+![rekomendasi](https://user-images.githubusercontent.com/63992512/147255999-6af5ea8b-cd2a-4416-b5dc-c1b38268f04b.jpg)
+![about](https://user-images.githubusercontent.com/63992512/147255474-6b846867-85af-4ac3-8a60-dd67f9aa2159.jpg)
+![footer](https://user-images.githubusercontent.com/63992512/147255537-86c70f90-38a3-44fc-88ae-849955ed081e.jpg)
+
 # **Referensi**
 1. [Music-genre-classifier](https://github.com/0sparsh2/Music-genre-classifier)
 2. [Librosa](https://librosa.org/doc/latest/tutorial.html)
