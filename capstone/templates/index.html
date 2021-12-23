@@ -1,62 +1,198 @@
 <!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Music CG</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <title>MusicG</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="Free Website Template" name="keywords">
+  <meta content="Free Website Template" name="description">
+  
+
+  <!-- Favicon -->
+  <link href="{{ url_for('static', filename='img/favicon.ico') }}" rel="icon">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Libraries -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/flaticon/font/flaticon.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+  <!-- Template Stylesheet -->
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
- <div class="login" >
-   <div id="head" style="font-family: Allerta Stencil, Sans-serif;">
-    <h1 style="font-size:6rem;">Genre Detection</h1>
-   </div>
+  <!-- Nav Bar Start -->
+  <div class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a href="http://192.168.43.221:5000/" class="navbar-brand">M<span>usic</span>G</a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post" enctype="multipart/form-data">
-    	<input type="file" name="file" placeholder="Audio" required="required"  accept=".wav" id = "upload"/>
-      <audio id="audio" controls>
-        <source src="" id="src" />
-      </audio>
-        <button type="submit" class="btn btn-primary btn-block btn-large" >Predict</button>
-    </form>
-   <div>
-    {% if prediction %}
-        <h2>lagu prediksi genre {{prediction}}</h2>
-    {% endif %}
+      <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+        <div class="navbar-nav ml-auto">
+          <a href="http://192.168.43.221:5000/" class="nav-item nav-link">Home</a>
+          <a href="#predict" class="nav-item nav-link">Predict</a>
+          <a href="#about" class="nav-item nav-link">About</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Nav Bar End -->
 
-    <div align="center">
-      <table>
-          <h1>
-          <!--Displaying the converted table-->
-               {% for table in tables %}
-              <h2>{{titles[loop.index]}}</h2>                            
-              {{ table|safe }}
-              {% endfor %}     
-          </h1> 
-      </table>
-  </div>
 
+  <!-- Hero Start -->
+  <div class="hero" id="#index">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-6">
+          <div class="hero-text wow slideInUp">
+            <h1>Music Genre Prediction and Recommendation</h1>
+            <p>
+              Prediksi genre lagu dan dapatkan rekomendasi lagunya!
+            </p>
+            <div class="hero-btn">
+              <a class="btn" href="#predict">Predict</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 d-none d-md-block">
+          <div class="hero-image wow zoomIn">
+            <img src="{{ url_for('static', filename='img/Listening happy music-bro (1).svg') }}" alt="Hero Image">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="pagination">
-    <ol id="numbers"></ol>
+  <!-- Hero End -->
+
+
+  <!-- Predict Start -->
+  <div class="blog" id="predict">
+    <div class="container">
+      <div class="section-header text-center wow zoomIn" data-wow-delay="0.1s">
+        <p>Predict</p>
+        <h2>Genre Prediction</h2>
+      </div>
+      <div class="text-center wow zoomIn" data-wow-delay="0.1s">
+        <div class="blog-item">
+          <p>
+            Lagu harus dalam format `.wav`. Silahkan kunjungi website <a
+              href="https://audio.online-convert.com/id/konversi-ke-wav">ini</a> untuk mengubah lagu anda
+            menjadi `.wav`!
+          </p>
+          <br>
+          <!-- Main Input For Receiving Query to our ML -->
+          <form action="{{ url_for('predict')}}" method="post" enctype="multipart/form-data">
+            <label for="form-label" class="form-label"></label>
+            <input class="form-control" type="file" name="file" placeholder="Audio" required="required" accept=".wav" id="upload" style="padding: 2px 0px 0px 3px;" />
+            <br>
+            <button type="submit" class="btn">Predict</button>
+          </form>
+        </div>
+        <div class="blog-text">
+          {% if prediction %}
+          <h2>Prediksi genre lagu adalah {{prediction}}.</h2>
+          {% endif %}
+        </div>
+      </div>
+      <div class="section-header text-center wow zoomIn">
+        <h2 style="margin-top: 60px; margin-bottom: 20px;">Rekomendasi Lagu</h2>
+        <table>
+          <!--Displaying table recommendation-->
+          {% for table in tables %}
+          {{titles[loop.index]}}
+          {{ table|safe }}
+          {% endfor %}
+        </table>
+        <br>
+        <div class="pagination">
+          <ol id="numbers" class="page-link"></ol>
+        </div>
+      </div>
+    </div>
   </div>
+  <!-- Predict End -->
+
+
+  <!-- About Start -->
+  <div class="about wow fadeInUp" data-wow-delay="0.1s" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-5 col-md-6">
+          <div class="about-img">
+            <img src="{{ url_for('static', filename='img/Boombox-bro (1).svg') }}" alt="Image">
+          </div>
+        </div>
+        <div class="col-lg-7 col-md-6">
+          <div class="section-header text-left">
+            <p>About Us</p>
+            <h2>Welcome to MusicG</h2>
+          </div>
+          <div class="about-text">
+            <p>
+              MusicG adalah website untuk memprediksi genre dari sebuah lagu yang memiliki format file
+              `.wav` dan menampilkan rekomendasi lagu sesuai dengan hasil prediksi.
+            </p>
+            <p>
+              Website ini bisa memprediksi hingga 10 genre yaitu Blues, Classical, Country, Disco, Hiphop,
+              Jazz, Metal, Pop, Reggae, dan Rock. Tentu prediksi genre ini tidak selalu tepat karena lagu
+              itu multi genre, tapi selamat mencoba!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- About End -->
+
+
+  <!-- Footer Start -->
+  <div class="footer wow fadeIn" data-wow-delay="0.3s">
+    <div class="container-fluid">
+      <div class="container">
+        <div class="footer-info">
+          <a href="index.html" class="footer-logo">M<span>usic</span>G</a>
+          <h3>M014V6060 Ayu Kadek Nadya Oktaviana</h3>
+          <h3>M299R5310 Muhammad Aldi Surya Putra</h3>
+          <div class="footer-social">
+            <a href="https://github.com/aldysp34/Music-Classification-and-Recommendation"><i
+                class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="container copyright">
+        <div class="row">
+          <div class="col-md-6">
+            <p>&copy; <a href="#">TIM CDS-109</a>, Pengembangan Machine Learning dan Front-End Web</p>
+          </div>
+          <div class="col-md-6">
+            <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer End -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+
+  <!-- Template Javascript -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
-<script>
-  function handleFiles(event) {
-    var files = event.target.files;
-    $("#src").attr("src", URL.createObjectURL(files[0]));
-    document.getElementById("audio").load();
-  }
 
-  document.getElementById("upload").addEventListener("change", handleFiles, false);
-</script>
-<script src="{{ url_for('static', filename='pagination.js') }}"></script>
 </html>
