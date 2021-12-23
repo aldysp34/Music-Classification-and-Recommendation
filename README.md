@@ -30,11 +30,11 @@ Penjelasan mengenai data pada proyek ini ditemukan di<br>
 ### **Local Deployment**
 1. Buka project di text editor seperti VSC, PyCharm.
 2. Buka file capstone, kemudian buka file `app.py`
-3. Buka terminal `app.py`
+3. Buka terminal `pada folder capstone`
 4. Install beberapa hal berikut:
 - environment : `pip install virtualenv`
 - create enviroment : `virtualenv env_capstone`
-- requirement : `pip install-r requirement.txt`
+- requirement : `pip install -r requirement.txt`
 5. Setelah instalasi selesai, ketik perintah `python.exe app.py` pada terminal.
 6. Tunggu hingga muncul link localhost deployment, klik link tersebut.
 7. Masukkan lagu yang ingin diprediksi dengan format lagu yaitu `.wav`.
