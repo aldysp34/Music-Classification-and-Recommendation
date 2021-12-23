@@ -74,7 +74,7 @@ Model dikompilasi dengan :
 5. **Evaluasi Model**
 Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut diplot untuk menggambarkan apakah model mengalami _overfitting_ atau _underfitting_. Pada proyek ini model yang dihaislkan mengalami _underfitting_ yang dapat dilihat dari gambar berikut. ![plot_akurasi](https://user-images.githubusercontent.com/63992512/147046383-d2b30c06-9324-4d9d-9c4f-3f81f5b46375.png)
 
-6. **Hasil**
+# **Hasil**
 ![home](https://user-images.githubusercontent.com/63992512/147255105-f51f55e8-fdad-439f-a551-14aa3b52ad8d.jpg)
 ![predict2](https://user-images.githubusercontent.com/63992512/147255741-f45a2d0f-54c9-4917-a11a-ea04c970cda3.jpg)
 ![reggae](https://user-images.githubusercontent.com/63992512/147255888-602ed45f-6bf2-4fae-95ac-05f2ab5e91c2.jpg)
