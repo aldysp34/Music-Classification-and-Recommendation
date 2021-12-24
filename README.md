@@ -1,9 +1,9 @@
-# **Music Genre Classification and Recommendation Song**
+# **Music Genre Classification and Recommendation**
 _Capstone_ MBKM SIB Dicoding Tim CSD-109. Tujuan proyek ini untuk mengklasifikasikan genre dari audio musik menggunakan _deep learning dan memberikan lagu yang serupa dengan genre dari audio tersebut.
 
 ## **Dataset**
 Data yang digunakan pada proyek ini adalah [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification) dan [Spotify Top 200 Charts (2020-2021)](https://www.kaggle.com/sashankpillai/spotify-top-200-charts-20202021).
-> Dataset [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification) terdiri dari 1000 track audio,  masing-masing berdurasi 30 detik dan berisi 10 genre, masing-masing diwakili oleh 100 lagu. Semua track adalah audio 16-bit Mono 22050Hz dalam format `.wav`.
+> Dataset [GTZAN Dataset](https://www.kaggle.com/andradaolteanu/gtzan-dataset-music-genre-classification) terdiri dari 1000 track audio,  masing-masing berdurasi 30 detik dan berisi 10 genre, masing-masing diwakili oleh 100 lagu. Semua track adalah audio 16-bit Mono 22050Hz dalam format `.wav`.<br>
 > Dataset [Spotify Top 200 Charts (2020-2021)](https://www.kaggle.com/sashankpillai/spotify-top-200-charts-20202021) mencakup semua lagu yang telah berada di 200 Tangga Lagu Mingguan (Global) Teratas di Spotify pada tahun 2020 & 2021. Pada proyek ini hanya memerlukan empat fitur yaitu 'Song Name', 'Artist', 'Genre', dan 'Realese Date' dari keseulurah fitur dari dataset.
 
 10 genre dalam GTZAN Dataset : 
@@ -43,17 +43,17 @@ Penjelasan mengenai data pada proyek ini ditemukan di<br>
 # **Modeling**
 Pada proyek ini, kami menggunakan Deep Learning untuk membuat model klasifikasi. Kami menggunakan TensorFlow untuk membangun Neural Networks.
 1. **Extraksi Fitur MFCC (_Mel Frequency Cepstral Coefficients_)**
-Penelitian yang dilakukan oleh [(G. Jawaherlalnehru
+<br>Penelitian yang dilakukan oleh [(G. Jawaherlalnehru
 dan S. Jothilakshmi, 2018)](https://www.semanticscholar.org/paper/Music-Genre-Classification-using-Deep-Neural-Jawaherlalnehru-Jothilakshmi/4d4c342090d771b8a9b38eca212c2b330952c28d) menyebutkan bahwa MFCC digunakan untuk merepresentasikan karakteristik musik. Oleh karena itu, pada proyek ini, untuk mengenali genre dari sebuah lagu kami menggunakan fitur MFCC. Library `librosa` menyediakan fungsi bawaan untuk mengektrasksi MFCC. Adapun parameter yang digunakan dalam proyek ini adalah:
 - `sample_rate` : 22050 (default)
 - `m_fcc`       : 40 (default 20)
 - `n_ftt`       : 2040 (default)
 - `hop_length`  : 512 (default)
 - `res_type`    : kaiser_fast
-Hasil ektraksi MFF kemudian diberi label dengan `LabelEncoder()`.
+<br>Hasil ektraksi MFF kemudian diberi label dengan `LabelEncoder()`.
 
 2. **Membangun Model Neural Network**
-Dengan bantuan tensorflow, model yang dibangun atas:
+<br>Dengan bantuan tensorflow, model yang dibangun atas:
 - Dense layer   : Untuk menambahkan layar yang _fully connected_.
     - _units_ menandakan jumlah node yang harus ada di _hidden layer_
     - _activation_, fungsi aktivasi yang digunakan adalah relu.
@@ -61,18 +61,18 @@ Dengan bantuan tensorflow, model yang dibangun atas:
 - Output layer  : Terdiri dari 10 units karena klasifikasi pada proyek terdapat 10 genre.
 
 3. **Persiapan Data**
-Data dibagi menjadi data testing dan training.
+<br>Data dibagi menjadi data testing dan training.
 - _Train set_   : 67% dari dataset.
 - _Test set_    : 33% dari dataset.
 
 4. **_Training_ data dengan Deep Learning**
-Model dikompilasi dengan :
+<br>Model dikompilasi dengan :
 - _optimizer_   : `Adam`
 - _loss_        : `categorical_crossentropy`
 - _metrics_     : `accucary`
 
 5. **Evaluasi Model**
-Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut diplot untuk menggambarkan apakah model mengalami _overfitting_ atau _underfitting_. Pada proyek ini model yang dihaislkan mengalami _underfitting_ yang dapat dilihat dari gambar berikut. ![plot_akurasi](https://user-images.githubusercontent.com/63992512/147046383-d2b30c06-9324-4d9d-9c4f-3f81f5b46375.png)
+<br>Evaluasi model dengan akurasi train/test dan loss train/test. Angka tersebut diplot untuk menggambarkan apakah model mengalami _overfitting_ atau _underfitting_. Pada proyek ini model yang dihaislkan mengalami _underfitting_ yang dapat dilihat dari gambar berikut. ![plot_akurasi](https://user-images.githubusercontent.com/63992512/147046383-d2b30c06-9324-4d9d-9c4f-3f81f5b46375.png)
 
 # **Hasil**
 ![home](https://user-images.githubusercontent.com/63992512/147255105-f51f55e8-fdad-439f-a551-14aa3b52ad8d.jpg)
